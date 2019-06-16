@@ -1,23 +1,72 @@
-//Declaring Pokedex database
-var dex = [
-  {name: 'Bulbasaur', height: 70, types: ['grass', 'poison']},
-  {name: 'Ivysaur', height: 100, types: ['grass', 'poison']},
-  {name: 'Venusaur', height: 200, types: ['grass', 'poison']}
-];
+var pokemonRepository = (function(){
 
-//Listing contents of Pokemon database
-dex.forEach(function(property) {
-    if (property.height < 200){
-    document.write('Name: '+property.name+'<br>');
-    document.write('Height: '+property.height+'cm<br>');
-    document.write('Types: '+property.types.join(', ')+'<br>');
-    document.write('<br>');
+  //repository of all of the pokemon
+  var repository = [
+    {name: 'Bulbasaur', height: 70, types: ['grass', 'poison']},
+    {name: 'Ivysaur', height: 100, types: ['grass', 'poison']},
+    {name: 'Venusaur', height: 200, types: ['grass', 'poison']}
+  ];
+
+  //Adds pokemon to repository
+  function addPokemon(pokemon){
+    repository.push(pokemon);
   }
-    else {
-      document.write('Name: '+property.name+'<br>');
-      document.write('Height: '+property.height+'cm - Wow! That\'s big!<br>');
-      document.write('Types: '+property.types.join(', ')+'<br>');
-      document.write('<br>');
-        }
+
+  //returns pokemon repository
+  function getAllPokemon(){
+    return repository;
   }
-)
+
+  //public functions
+  return {
+    addPokemon: addPokemon,
+    getAllPokemon: getAllPokemon
+  };
+})();
+
+var allPokemon = pokemonRepository.getAllPokemon();
+
+//returns pokemon height in cm
+function getPokemonHeight(singlePokemon){
+  return singlePokemon.height + 'cm';
+}
+
+//for pokemon larger than 200cm, returns string
+function getPokemonHeightComment(singlePokemon){
+  if (singlePokemon.height < 200){
+    return 'Wow - that\'s big!';
+  }
+  else {
+      return null;
+  }
+}
+
+//returns pokemon name
+function getPokemonName(singlePokemon){
+  return singlePokemon.name;
+}
+
+//returns pokemon types
+function getPokemonTypes(singlePokemon){
+  return singlePokemon.types;
+}
+
+//returns pokemon name, height, and type as string
+function getPokemonDescription(singlePokemon){
+  return getPokemonName + ' (' + getPokemonHeight + getPokemonTypes + ')';
+}
+
+//if getPokemonHeight is truthy, returns getPokemonDescription and getPokemonHeightComment
+function getVerbosePokemonDescription(singlePokemon){
+  if (getPokemonHeightComment) {
+    return getPokemonDescription + ' - ' + getPokemonHeightComment;
+  }
+  else {
+    return getPokemonDescription;
+  }
+}
+
+//displays pokemon repository
+allPokemon.forEach(function(pokemon){
+  console.log(getVerbosePokemonDescription(pokemon))+'<br>';
+});
