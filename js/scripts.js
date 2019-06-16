@@ -24,8 +24,6 @@ var pokemonRepository = (function(){
   };
 })();
 
-var allPokemon = pokemonRepository.getAllPokemon();
-
 //returns pokemon height in cm
 function getPokemonHeight(singlePokemon){
   return singlePokemon.height + 'cm';
@@ -66,7 +64,9 @@ function getVerbosePokemonDescription(singlePokemon){
   }
 }
 
+var allPokemon = pokemonRepository.getAllPokemon();
+
 //displays pokemon repository
 allPokemon.forEach(function(pokemon){
-  console.log(getVerbosePokemonDescription(pokemon))+'<br>';
+  document.write(getVerbosePokemonDescription(pokemon))+'<br>';
 });
