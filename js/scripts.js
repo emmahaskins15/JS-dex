@@ -26,7 +26,7 @@ var pokemonRepository = (function(){
 
 //returns pokemon height in cm
 function getPokemonHeight(singlePokemon){
-  return singlePokemon.height + 'cm';
+  return singlePokemon.height + 'cm ';
 }
 
 //for pokemon larger than 200cm, returns string
@@ -39,11 +39,6 @@ function getPokemonHeightComment(singlePokemon){
   }
 }
 
-//returns pokemon name
-function getPokemonName(singlePokemon){
-  return singlePokemon.name;
-}
-
 //returns pokemon types
 function getPokemonTypes(singlePokemon){
   return singlePokemon.types;
@@ -51,13 +46,13 @@ function getPokemonTypes(singlePokemon){
 
 //returns pokemon name, height, and type as string
 function getPokemonDescription(singlePokemon){
-  return getPokemonName + ' (' + getPokemonHeight + getPokemonTypes + ')';
+  return singlePokemon.name + ' (' + getPokemonHeight(singlePokemon) + getPokemonTypes(singlePokemon) + ')';
 }
 
 //if getPokemonHeight is truthy, returns getPokemonDescription and getPokemonHeightComment
 function getVerbosePokemonDescription(singlePokemon){
-  if (getPokemonHeightComment) {
-    return getPokemonDescription + ' - ' + getPokemonHeightComment;
+  if (getPokemonHeightComment(singlePokemon)) {
+    return getPokemonDescription(singlePokemon) + ' - ' + getPokemonHeightComment(singlePokemon);
   }
   else {
     return getPokemonDescription;
@@ -68,5 +63,5 @@ var allPokemon = pokemonRepository.getAllPokemon();
 
 //displays pokemon repository
 allPokemon.forEach(function(pokemon){
-  document.write(getVerbosePokemonDescription(pokemon))+'<br>';
+  document.write(getVerbosePokemonDescription(pokemon))+'<br>'+'<br>';
 });
