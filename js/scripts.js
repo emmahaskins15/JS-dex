@@ -31,7 +31,7 @@ function getPokemonHeight(singlePokemon){
 
 //for pokemon larger than 200cm, returns string
 function getPokemonHeightComment(singlePokemon){
-  if (singlePokemon.height < 200){
+  if (singlePokemon.height >= 200){
     return 'Wow - that\'s big!';
   }
   else {
@@ -55,13 +55,13 @@ function getVerbosePokemonDescription(singlePokemon){
     return getPokemonDescription(singlePokemon) + ' - ' + getPokemonHeightComment(singlePokemon);
   }
   else {
-    return getPokemonDescription;
+    return getPokemonDescription(singlePokemon);
   }
 }
 
 var allPokemon = pokemonRepository.getAllPokemon();
 
 //displays pokemon repository
-allPokemon.forEach(function(pokemon){
-  document.write(getVerbosePokemonDescription(pokemon))+'<br>'+'<br>';
+allPokemon.forEach(function(singlePokemon){
+  document.write(getVerbosePokemonDescription(singlePokemon)+'<br>');
 });
