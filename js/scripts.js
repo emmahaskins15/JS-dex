@@ -17,11 +17,24 @@ var pokemonRepository = (function(){
     return repository;
   }
 
+  //create LI
+  function addListItem(pokemon){
+    var listItem = document.createElement('li');
+    var button = document.createElement('button');
+    button.classList.add('pokedexButton')
+    listItem.appendChild(button);
+    $pokemonList.appendChild(listItem);
+    button.innerText=pokemon.name;
+
+  }
+
   //public functions
   return {
     addPokemon: addPokemon,
-    getAllPokemon: getAllPokemon
+    getAllPokemon: getAllPokemon,
+    addListItem: addListItem
   };
+
 })();
 
 //returns pokemon height in cm
@@ -60,8 +73,8 @@ function getVerbosePokemonDescription(singlePokemon){
 }
 
 var allPokemon = pokemonRepository.getAllPokemon();
+var $pokemonList = document.querySelector('.pokemon-list');
+var addPokemonList = pokemonRepository.addListItem();
 
 //displays pokemon repository
-allPokemon.forEach(function(singlePokemon){
-  document.write(getVerbosePokemonDescription(singlePokemon)+'<br>');
-});
+allPokemon.forEach(addPokemonList);
