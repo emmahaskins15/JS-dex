@@ -1,3 +1,4 @@
+// start iife
 var pokemonRepository = (function(){
 
   //repository of all of the pokemon
@@ -17,16 +18,70 @@ var pokemonRepository = (function(){
     return repository;
   }
 
-  //create LI
-  function addListItem(pokemon){
-    var listItem = document.createElement('li');
-    var button = document.createElement('button');
-    button.classList.add('pokedexButton')
-    listItem.appendChild(button);
-    $pokemonList.appendChild(listItem);
-    button.innerText=pokemon.name;
 
+  //add list item to
+  function addListItem(pokemonItem){
+    var listItemText = document.createTextNode(pokemonItem.name); //pokemon name
+    //var buttonText = document.createTextNode($pokemon.name);     //button text
+
+    //creating DOM elements
+    var $pokemon = document.createElement('pokemon');
+    var $detailsButton = document.createElement('button');
+    var $li = document.createElement('li');
+    var $pokemonList = document.querySelector('.pokemon-list');
+
+    // add class to li
+    $detailsButton.classList.add('pokedexButton');
+    $li.classList.add('list-item');
+
+    //append elements to DOM
+    $detailsButton.appendChild(listItemText);
+    $li.appendChild($pokemon);
+    $li.appendChild($detailsButton);
+    $pokemonList.appendChild($li);
   }
+
+  // show details on button click
+  function showDetails(pokemonItem){
+    console.log(pokemonItem);
+
+    //click event listener
+      document.querySelector($detailsButton).addEventListener('click', function(event){
+
+        // find the modal and remove if it exists
+        function removeModal(){
+          const modal = document.querySelector('.modal')
+          if (modal) {
+            modal.remove()
+            }
+          }
+
+        //render modal
+        function renderModal(element){
+          var modal = document.createElement('div');
+          modal.classList.add('modal');
+
+        //create modal div
+          var child = document.createElement('div');
+          child.classList.add('child');
+          child.innerHTML = element;
+          child.appendChild(pokemonItem.name, pokemonItem.height, pokemon.types);
+
+        //render modal with child on DOM
+          modal.appendChild(child)
+          document.body.appendChild(modal);
+        }
+
+        // remove modal if background clicked
+         modal.addEventListener('click', function(event) {
+           if (event.target.className === 'modal') {
+             removeModal()
+           }
+         });
+      });
+    }
+
+
 
   //public functions
   return {
@@ -37,44 +92,9 @@ var pokemonRepository = (function(){
 
 })();
 
-//returns pokemon height in cm
-function getPokemonHeight(singlePokemon){
-  return singlePokemon.height + 'cm ';
-}
-
-//for pokemon larger than 200cm, returns string
-function getPokemonHeightComment(singlePokemon){
-  if (singlePokemon.height >= 200){
-    return 'Wow - that\'s big!';
-  }
-  else {
-      return null;
-  }
-}
-
-//returns pokemon types
-function getPokemonTypes(singlePokemon){
-  return singlePokemon.types;
-}
-
-//returns pokemon name, height, and type as string
-function getPokemonDescription(singlePokemon){
-  return singlePokemon.name + ' (' + getPokemonHeight(singlePokemon) + getPokemonTypes(singlePokemon) + ')';
-}
-
-//if getPokemonHeight is truthy, returns getPokemonDescription and getPokemonHeightComment
-function getVerbosePokemonDescription(singlePokemon){
-  if (getPokemonHeightComment(singlePokemon)) {
-    return getPokemonDescription(singlePokemon) + ' - ' + getPokemonHeightComment(singlePokemon);
-  }
-  else {
-    return getPokemonDescription(singlePokemon);
-  }
-}
-
 var allPokemon = pokemonRepository.getAllPokemon();
-var $pokemonList = document.querySelector('.pokemon-list');
-var addPokemonList = pokemonRepository.addListItem();
 
 //displays pokemon repository
-allPokemon.forEach(addPokemonList);
+allPokemon.forEach(function(pokemonItem){
+  pokemonRepository.addListItem(pokemonItem);
+});
