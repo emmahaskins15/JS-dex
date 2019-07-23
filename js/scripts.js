@@ -41,6 +41,13 @@ var pokemonRepository = (function(){
     $pokemonList.appendChild($li);
   }
 
+  // Show details on click event listener
+  $detailsButton.addEventListener('click', function(event) {
+    showDetails(pokemonItem);
+    });
+
+  /* To be implemented in future
+
   // show details on button click
   function showDetails(pokemonItem){
     console.log(pokemonItem);
@@ -79,8 +86,7 @@ var pokemonRepository = (function(){
            }
          });
       });
-    }
-
+    }*/
 
 
   //public functions
