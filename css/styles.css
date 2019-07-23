@@ -30,12 +30,21 @@ ul {
 body {
   margin: 25px;
   font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 3vw;
+  text-overflow: clip;
+  width: 50%;
 }
 
 #title {
   display: inline-flex;
-  width: 75%;
+  width: 100%;
   height: auto;
+}
+
+#Layer_1 {
+  display: inline-flex;
+  width: 200%;
+  margin: 0% 10%;
 }
 
 .detailsPopup {

@@ -39,12 +39,14 @@ var pokemonRepository = (function(){
     $li.appendChild($pokemon);
     $li.appendChild($detailsButton);
     $pokemonList.appendChild($li);
-  }
 
-  // Show details on click event listener
-  $detailsButton.addEventListener('click', function(event) {
-    showDetails(pokemonItem);
-    });
+    // Logs pokemon to console on click
+    $detailsButton.addEventListener('click', function(event) {
+      console.log(pokemonItem.name);
+  });
+}
+
+
 
   /* To be implemented in future
 
