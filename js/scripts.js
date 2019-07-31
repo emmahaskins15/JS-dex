@@ -43,13 +43,6 @@ var pokemonRepository = (function(){
     loadList: loadList,
     loadDetails: loadDetails
   };
-// })(); Not sure if this is right
-
-  // Deprecated
-  // //Adds pokemon to repository
-  // function addPokemon(pokemon){
-  //   repository.push(pokemon);
-  // }
 
   //returns pokemon repository
   function getAll(){
@@ -89,14 +82,68 @@ var pokemonRepository = (function(){
     console.log(item); });
   }
 
+  function showModal(title, text) {
+    var $modalContainer = document.querySelector('#modal-container');
+
+    //Clear existing modal content
+    $modalContainer.innerHTML = '';
+
+    var modal = document.createElement('div');
+    modal.classList.add('modal');
+
+    // Add new modal button
+    var closeButtonElement = document.createElement('button');
+    closeButtonElement.classList.add('modal-close');
+    closeButtonElement.innerText = 'Close';
+    closeButtonElement.addEventListener('click', hideModal);
+
+    var titleElement = document.createElement('h1');
+    titleElement.innerText = title;
+
+    var contentElement = document.createElement('p');
+    contentElement.innerText = text;
+
+    modal.appendChild(closeButtonElement);
+    modal.appendChild(titleElement);
+    modal.appendChild(contentElement);
+    $modalContainer.appendChild(modal);
+    $detailsButton.appendChild($modalContainer);
+
+    $modalContainer.classList.add('is-visible');
+
+    document.querySelector('button#show-modal').addEventListener('click', function() {
+      showModal('Modal title', 'Modal body');
+    });
+  }
+
+
+
+function hideModal() {
+  var $modalContainer = document.querySelector('#modal-container');
+  $modal.classList.remove('is-visible');
+}
+
+window.addEventListener('keydown', (e) => {
+  var $modalContainer = document.querySelector('#modal-container');
+  if (e.key === 'Escape' &&  $modalContainer.classList.contains('is-visible'))
+    {
+      hideModal();
+    }
+  });
+
+  $modalContainer.addEventListener('click', (e) => {
+    var target = e.target;
+    if (target === $modalContainer)
+    {
+      hideModal();
+    }
+  });
+
+
 })();
-  // Logs pokemon to console on click
-//   function showDetails(item) {
-//       $detailsButton.addEventListener('click', function() {
-//         showDetails(item);
-//
-//   })
-// }
+
+
+
   /* To be implemented in future
 
   // show details on button click

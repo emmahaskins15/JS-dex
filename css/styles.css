@@ -47,6 +47,7 @@ body {
   margin: 0% 10%;
 }
 
+/*
 .detailsPopup {
   display: block;
   width: 50%;
@@ -69,4 +70,15 @@ body {
   background: white;
   position: absolute;
   transform: translate(-50%, -50%);
+}
+*/
+
+#modal-container {
+  display: none;
+}
+
+#modal-container.is-visible {
+  display: block;
+  background: #56b4e8;
+  border-radius: 10px;
 }
