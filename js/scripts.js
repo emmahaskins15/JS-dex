@@ -33,7 +33,7 @@ var pokemonRepository = (function(){
         item.types = Object.keys(details.types);
       }).catch(function (e) {
         console.error(e);
-      })
+      });
     }
 
   //returns pokemon repository
@@ -41,6 +41,11 @@ var pokemonRepository = (function(){
     return repository;
   }
 
+  function showDetails(item) {
+    pokemonRepository.loadDetails(item).then(function () {
+      showModal(item);
+        });
+      }
 
   //add list item to
   function addListItem(item){
@@ -69,10 +74,10 @@ var pokemonRepository = (function(){
 }
 
   function showDetails(item) {
-    pokemonRepository.loadDetails(item).then(function ()
-  {
-    console.log(item); });
-  }
+  pokemonRepository.loadDetails(item).then(function () {
+    showModal(item);
+      });
+    }
 
   function showModal(title, text) {
     var $modalContainer = document.querySelector('#modal-container');
@@ -95,6 +100,8 @@ var pokemonRepository = (function(){
     var contentElement = document.createElement('p');
     contentElement.innerText = text;
 
+    var $detailsButton = document.querySelector('.pokedexButton');
+
     modal.appendChild(closeButtonElement);
     modal.appendChild(titleElement);
     modal.appendChild(contentElement);
@@ -102,17 +109,15 @@ var pokemonRepository = (function(){
     $detailsButton.appendChild($modalContainer);
 
     $modalContainer.classList.add('is-visible');
-
-    document.querySelector('#show-modal').addEventListener('click', function() {
-      showModal('Modal title', 'Modal body');
-    });
   }
 
-
+  // document.querySelector('#show-modal').addEventListener('click', function() {
+  //   showModal('Modal title', 'Modal body');
+  // });
 
 function hideModal() {
   var $modalContainer = document.querySelector('#modal-container');
-  $modal.classList.remove('is-visible');
+  $modalContainer.classList.remove('is-visible');
 
 
 window.addEventListener('keydown', (e) => {
@@ -132,6 +137,7 @@ window.addEventListener('keydown', (e) => {
   });
 }
 
+
     return {
       addListItem: addListItem,
       getAll: getAll,
@@ -139,54 +145,11 @@ window.addEventListener('keydown', (e) => {
       loadList: loadList,
       loadDetails: loadDetails,
       showModal: showModal,
-      hideModal: hideModal
+      hideModal: hideModal,
+      showDetails:showDetails
     };
 
 })();
-
-
-
-  /* To be implemented in future
-
-  // show details on button click
-  function showDetails(item){
-    console.log(item);
-
-    //click event listener
-      document.querySelector($detailsButton).addEventListener('click', function(event){
-
-        // find the modal and remove if it exists
-        function removeModal(){
-          const modal = document.querySelector('.modal')
-          if (modal) {
-            modal.remove()
-            }
-          }
-
-        //render modal
-        function renderModal(element){
-          var modal = document.createElement('div');
-          modal.classList.add('modal');
-
-        //create modal div
-          var child = document.createElement('div');
-          child.classList.add('child');
-          child.innerHTML = element;
-          child.appendChild(item.name, item.height, pokemon.types);
-
-        //render modal with child on DOM
-          modal.appendChild(child)
-          document.body.appendChild(modal);
-        }
-
-        // remove modal if background clicked
-         modal.addEventListener('click', function(event) {
-           if (event.target.className === 'modal') {
-             removeModal()
-           }
-         });
-      });
-    }*/
 
 
 pokemonRepository.loadList().then(function() {
